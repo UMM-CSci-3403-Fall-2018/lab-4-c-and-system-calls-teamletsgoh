@@ -6,9 +6,26 @@
 #define BUF_SIZE 1024
 
 bool is_vowel(char c) {
+	bool result = false;
+
+	if(c == 'a'||c == 'e'||c == 'i'||c == 'o'||c == 'u'||c == 'A'||c == 'E'||c == 'I'||c == 'O'||c == 'U') {
+		result = true;
+	} 
 }
 
 int copy_non_vowels(int num_chars, char* in_buf, char* out_buf) {
+	int i = 0;
+	int j = 0;
+
+	while(i < num_chars) {
+		if(is_vowel(in_buf[i]) == false) {
+			out_buf[j] = in_buf[i];
+			j++;
+		}
+		i++;
+	}
+
+	return strlen(out_buf);
 }
 
 void *disemvowel(FILE* input, FILE* output) {
