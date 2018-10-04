@@ -1,35 +1,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-char main() {
-	char str[100];
-	result = (char*) calloc (strlen(str), sizeof(char));
+#define BUF_SIZE 1024
 
-	printf( "Please enter a file you would like to disemvowel." );
-	scanf("%s", str);
-	result = disemvowel(str);
-	printf(result);
-	return 0;
+bool is_vowel(char c) {
 }
 
-char *disemvowel(char *str) {
+int copy_non_vowels(int num_chars, char* in_buf, char* out_buf) {
+}
+
+void *disemvowel(FILE* input, FILE* output) {
+
 	char *result;
 	int len, i, j;
-	int vowelcounter = 0;
+	int size = 100;
 
-	len = strlen(str);
+	len = strlen(input);
 	i = 0;
 	j = 0;
 	
-	// Counts vowels for string array creation
-	for (i = 0; i < 1; i++) {
-	        if(str[i] == 'a'||str[i] == 'e'||str[i] == 'i'||str[i] == 'o'||str[i] == 'u'||str[i] == 'A'||str[i] == 'E'||str[i] == 'I'||str[i] == 'O'||str[i] == 'U') {                        	 vowelcounter++;
-		}
-	}
-	
 	// Results calloc
-	result = (char*) calloc (len - vowelcounter + 1, sizeof(char));
+	result = (char*) calloc (size, sizeof(char));
 	
 	// Creates disemvoweled string
 	while(i < len) {
@@ -45,4 +38,18 @@ char *disemvowel(char *str) {
 	// Null terminator
 	result[len] ='\0';
 	return (char*) result;
+}
+
+int main() {
+        char *result;
+        char str[100];
+        result = (char*) calloc (strlen(str), sizeof(char));
+
+        printf( "Please enter a file you would like to disemvowel. " );
+        scanf("%s", str);
+	printf( "Your result: ");
+        result = disemvowel(str);
+        printf(result);
+	printf("\n");
+	return 0;
 }
