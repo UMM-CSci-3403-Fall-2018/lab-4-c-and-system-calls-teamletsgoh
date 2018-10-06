@@ -10,7 +10,9 @@ bool is_vowel(char c) {
 
 	if(c == 'a'||c == 'e'||c == 'i'||c == 'o'||c == 'u'||c == 'A'||c == 'E'||c == 'I'||c == 'O'||c == 'U') {
 		result = true;
-	} 
+	}
+
+	return result;	
 }
 
 int copy_non_vowels(int num_chars, char* in_buf, char* out_buf) {
@@ -25,48 +27,28 @@ int copy_non_vowels(int num_chars, char* in_buf, char* out_buf) {
 		i++;
 	}
 
-	return strlen(out_buf);
+	return j;
 }
 
 void *disemvowel(FILE* input, FILE* output) {
+	char* in_buf = (char*) calloc(BUF_SIZE, sizeof(char));
+	char* out_buf = (char*) calloc(BUF_SIZE, sizeof(char));
 
-	char *result;
-	int len, i, j;
-	int size = 100;
-
-	len = strlen(input);
-	i = 0;
-	j = 0;
-	
-	// Results calloc
-	result = (char*) calloc (size, sizeof(char));
-	
-	// Creates disemvoweled string
-	while(i < len) {
-		if(str[i] == 'a'||str[i] == 'e'||str[i] == 'i'||str[i] == 'o'||str[i] == 'u'||str[i] == 'A'||str[i] == 'E'||str[i] == 'I'||str[i] == 'O'||str[i] == 'U') {
-			i++;
-		} else {
-			result[j] = str[i];
-			i++;
-			j++;
-		}
+	int in_len = fread(in_buf, sizeof(char), BUF_SIZE, input);
+	while (in_len != 0) {
+		int non_vowels = copy_non_vowels(strlen(in_buf), in_buf, out_buf);
+		fwrite(out_buf, sizeof(char), non_vowels, output);
+		in_len = fread(in_buf, sizeof(char), BUF_SIZE, input);
 	}
-
-	// Null terminator
-	result[len] ='\0';
-	return (char*) result;
 }
 
-int main() {
-        char *result;
-        char str[100];
-        result = (char*) calloc (strlen(str), sizeof(char));
+int main(int argc, char *argv[]) {
+	FILE *input;
+	FILE *output;
+	
+	
 
-        printf( "Please enter a file you would like to disemvowel. " );
-        scanf("%s", str);
-	printf( "Your result: ");
-        result = disemvowel(str);
-        printf(result);
-	printf("\n");
+	disemvowel(input, output);
+
 	return 0;
 }
