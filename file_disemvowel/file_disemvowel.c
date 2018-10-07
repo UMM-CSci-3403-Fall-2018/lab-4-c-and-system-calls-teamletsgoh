@@ -45,10 +45,15 @@ void *disemvowel(FILE* input, FILE* output) {
 int main(int argc, char *argv[]) {
 	FILE *input;
 	FILE *output;
-	
-	
 
-	disemvowel(input, output);
+// Code that processes the command line arguments 
+// and sets up inputFile and outputFile
+
+
+
+
+	
+disemvowel(input, output);
 
 	return 0;
 }
