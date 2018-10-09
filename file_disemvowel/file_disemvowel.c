@@ -30,7 +30,7 @@ int copy_non_vowels(int num_chars, char* in_buf, char* out_buf) {
 	return j;
 }
 
-void *disemvowel(FILE* input, FILE* output) {
+void disemvowel(FILE* input, FILE* output) {
 	char* in_buf = (char*) calloc(BUF_SIZE, sizeof(char));
 	char* out_buf = (char*) calloc(BUF_SIZE, sizeof(char));
 
@@ -43,11 +43,38 @@ void *disemvowel(FILE* input, FILE* output) {
 }
 
 int main(int argc, char *argv[]) {
-	FILE *input;
+	FILE *input; 
 	FILE *output;
-	
-	
+	//char* lineIn = (char*) calloc(BUF_SIZE, sizeof(char));
+	//char* lineOut = (char*) calloc(BUF_SIZE, sizeof(char));
 
+	// when only an input is given - works like old disemvowel 
+	if (argc == 1){
+		input = stdin;
+		output = stdout;
+		//lineIn = stdin;
+		//lineOut = disemvowel(lineIn, stdout);
+		//print(result);
+	}
+
+	// when input file is given but we are printing out to the terminal
+	if (argc == 2){
+		input = fopen(argv[1], "r");
+		output = stdout;
+		//disemvowel(input, output);
+	}
+
+	// when input file is given and also an output file to print out to
+	if (argc == 3){
+		input = fopen(argv[1], "r");
+		output = fopen(argv[2], "w");
+		//disemvowel(input, output);
+
+	// should never reach here since the function is not suppose to take more than 1 input and 1 output
+	} else {
+		return 0;
+	} 	
+	
 	disemvowel(input, output);
 
 	return 0;
