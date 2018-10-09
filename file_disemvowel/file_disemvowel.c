@@ -59,22 +59,23 @@ int main(int argc, char *argv[]) {
 	}
 
 	// when input file is given but we are printing out to the terminal
-	if (argc == 2){
+	else if (argc == 2){
 		input = fopen(argv[1], "r");
 		output = stdout;
 		//disemvowel(input, output);
 	}
 
 	// when input file is given and also an output file to print out to
-	if (argc == 3){
+	else if (argc == 3){
 		input = fopen(argv[1], "r");
 		output = fopen(argv[2], "w");
 		//disemvowel(input, output);
 
 	// should never reach here since the function is not suppose to take more than 1 input and 1 output
 	} else {
-		return 0;
-	} 	
+		printf("Invalid entry");
+		return 1;
+	}	
 	
 	disemvowel(input, output);
 
