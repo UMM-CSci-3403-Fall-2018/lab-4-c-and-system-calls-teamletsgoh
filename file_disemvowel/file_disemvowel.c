@@ -45,6 +45,7 @@ void disemvowel(FILE* input, FILE* output) {
 int main(int argc, char *argv[]) {
 	FILE *input; 
 	FILE *output;
+
 	//char* lineIn = (char*) calloc(BUF_SIZE, sizeof(char));
 	//char* lineOut = (char*) calloc(BUF_SIZE, sizeof(char));
 
