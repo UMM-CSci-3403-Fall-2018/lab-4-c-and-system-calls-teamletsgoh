@@ -40,6 +40,8 @@ void disemvowel(FILE* input, FILE* output) {
 		fwrite(out_buf, sizeof(char), non_vowels, output);
 		in_len = fread(in_buf, sizeof(char), BUF_SIZE, input);
 	}
+	free(in_buf);
+	free(out_buf);
 }
 
 int main(int argc, char *argv[]) {
@@ -78,6 +80,9 @@ int main(int argc, char *argv[]) {
 	}	
 	
 	disemvowel(input, output);
+
+	fclose(input);
+	fclose(output);
 
 	return 0;
 }
