@@ -50,12 +50,12 @@ void process_directory(const char* path) {
 	while(result == false){
 		while(is_dir(path) == true) {
 			opendir();
-			path = getcwd():
+			path = getcwd();
 		}
 		char* temp;
 		temp = readdir();
-		if(temp == "." || temp == ".."){
-			result == true;
+		if(temp = "." || temp = ".."){
+			result = true;
 		}
 	}	
 	
