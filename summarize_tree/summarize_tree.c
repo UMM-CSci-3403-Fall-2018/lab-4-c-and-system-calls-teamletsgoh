@@ -10,7 +10,8 @@ static int num_dirs, num_regular;
 
 bool is_dir(const char* path) {
   /*
-   * Use the stat() function (try "man 2 stat") to determine if the file
+   * Use the stat() function (try "man 2 stat") to deteYou have to be careful not to process the
+   * "." and ".." dirrmine if the file
    * referenced by path is a directory or not.  Call stat, and then use
    * S_ISDIR to see if the file is a directory. Make sure you check the
    * return value from stat in case there is a problem, e.g., maybe the
@@ -18,9 +19,17 @@ bool is_dir(const char* path) {
    */
 
 	struct stat buf;
-	buf = path;
-	return S_ISDIR(buf.st_mode);
 
+	if(stat(path, &buf)==0){
+		if(S_ISDIR(buf.st_mode)){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+	
 }
 
 /* 
@@ -42,23 +51,19 @@ void process_directory(const char* path) {
    * with a matching call to chdir() to move back out of it when you're
    * done.
    */
+      
+	DIR* top = opendir(path);
+	struct dirent* dir;
+	chdir(path);
 
-	bool result = false;
-
-	chdir();
-
-	while(result == false){
-		while(is_dir(path) == true) {
-			opendir();
-			path = getcwd();
+	while((dir = (readdir(top))) != NULL){
+		top = dir->d_name;
+		if (strcmp(top, ".") != 0 || strcmp(top, "..") != 0){
+			num_dirs++;
+			process_path(top);
 		}
-		char* temp;
-		temp = readdir();
-		if(temp = "." || temp = ".."){
-			result = true;
-		}
-	}	
-	
+	}
+		
 	chdir("..");
 
 }
@@ -67,6 +72,7 @@ void process_file(const char* path) {
   /*
    * Update the number of regular files.
    */
+	++num_regular;
 }
 
 void process_path(const char* path) {
