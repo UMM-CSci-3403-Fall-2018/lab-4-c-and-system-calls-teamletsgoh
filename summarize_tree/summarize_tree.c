@@ -51,20 +51,22 @@ void process_directory(const char* path) {
    * with a matching call to chdir() to move back out of it when you're
    * done.
    */
-      
-	DIR* top = opendir(path);
-	struct dirent* dir;
-	chdir(path);
+	DIR* top;
+    	top = opendir(path);
+    	struct dirent* dir;
+    	chdir(path);
 
-	while((dir = (readdir(top))) != NULL){
-		top = dir->d_name;
-		if (strcmp(top, ".") != 0 || strcmp(top, "..") != 0){
-			num_dirs++;
-			process_path(top);
-		}
-	}
-		
-	chdir("..");
+    	while((dir = (readdir(top))) != NULL){
+      		if ((strcmp(dir->d_name, ".") == 0)||(strcmp(dir->d_name, "..") == 0)){
+        		continue;
+      		}
+      		process_path(dir->d_name);
+    	}
+
+    	num_dirs++;
+    	chdir("..");
+
+    	closedir(top);
 
 }
 
